@@ -9,15 +9,13 @@ const Balance = mongoose.model("Balance");
  */
 export let postBalance = (req: Request, res: Response, next: NextFunction) => {
   const newBalance = new Balance({
-    amount: 20000
+    amount: req.body.amount
   });
 
   newBalance
     .save()
-    .then((result: any) => {
-      return res.json({
-        balance: result
-      });
+    .then((balance: BalanceModel) => {
+      return res.json({ balance });
     })
     .catch((error: Error) => {
       res.status(404);
@@ -39,8 +37,7 @@ export let getBalance = (req: Request, res: Response, next: NextFunction) => {
       }
       return res.json({ balance });
     });
+  } else {
+    return next(res.status(404));
   }
-
-  res.status(404);
-  return next();
 };

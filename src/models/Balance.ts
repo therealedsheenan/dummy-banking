@@ -1,13 +1,16 @@
 import mongoose from "mongoose";
 
+import { DepositModel } from "./Deposit";
+
 export type BalanceModel = mongoose.Document & {
   _id: mongoose.Schema.Types.ObjectId,
-  amount: number
+  amount: number,
+  deposits: Array<DepositModel>
 };
 
 const balanceSchema = new mongoose.Schema({
-  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  amount: Number,
+  amount: { type: Number, required: true },
+  deposits: [{ type: mongoose.Schema.Types.ObjectId, ref: "Deposit" }]
 }, { timestamps: true });
 
 mongoose.model("Balance", balanceSchema);
