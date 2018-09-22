@@ -7,7 +7,7 @@ export type DepositModel = mongoose.Document & {
 };
 
 const depositSchema = new mongoose.Schema({
-  balanceId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  balanceId: { type: mongoose.Schema.Types.ObjectId, ref: "Balance" },
   amount: { type: Number, required: true },
 }, { timestamps: true });
 

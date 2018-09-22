@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import * as balance from "../../controllers/balance";
 import * as deposit from "../../controllers/deposit";
+import * as withdraw from "../../controllers/withdraw";
 
 const router = express.Router();
 
@@ -17,5 +18,10 @@ router.post("/balances", balance.postBalance);
 router.get("/deposits", deposit.getDeposits);
 router.get("/deposits/:depositId", deposit.getDeposit);
 router.post("/deposits", deposit.postDeposit);
+
+// withdraw
+router.get("/withdraws", withdraw.getWithdraws);
+router.get("/withdraws/:withdrawId", withdraw.getWithdraw);
+router.post("/withdraws", withdraw.postWithdraw);
 
 export default router;

@@ -10,7 +10,8 @@ export type BalanceModel = mongoose.Document & {
 
 const balanceSchema = new mongoose.Schema({
   amount: { type: Number, required: true },
-  deposits: [{ type: mongoose.Schema.Types.ObjectId, ref: "Deposit" }]
+  deposits: [{ type: mongoose.Schema.Types.ObjectId, ref: "Deposit" }],
+  withdraws: [{ type: mongoose.Schema.Types.ObjectId, ref: "Withdraw" }]
 }, { timestamps: true });
 
 mongoose.model("Balance", balanceSchema);
