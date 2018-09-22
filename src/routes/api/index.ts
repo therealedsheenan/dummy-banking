@@ -6,7 +6,7 @@ const router = express.Router();
 
 // sample alive message
 router.get("/", (req: Request, res: Response) =>
-  res.json({ message: "Alive!" })
+  res.send("Alive!")
 );
 
 // balance

@@ -54,9 +54,6 @@ export let getDeposit = (req: Request, res: Response, next: NextFunction) => {
       return res.json({ deposit });
     });
   }
-
-  res.status(404);
-  return next();
 };
 
 export let getDeposits = (req: Request, res: Response, next: NextFunction) => {
