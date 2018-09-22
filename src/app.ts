@@ -12,9 +12,7 @@ import mongoose from "mongoose";
 // models
 import "./models/Deposit";
 import "./models/Balance";
-
-// passport strategy
-// import "./services/passport";
+import "./models/Withdraw";
 
 const app = express();
 
