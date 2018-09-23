@@ -11,6 +11,7 @@ router.get("/", (req: Request, res: Response) =>
 );
 
 // balance
+router.get("/balances", balance.getBalances);
 router.get("/balances/:balanceId", balance.getBalance);
 router.post("/balances", balance.postBalance);
 
