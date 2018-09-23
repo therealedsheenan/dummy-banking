@@ -47,5 +47,22 @@ context("dummy-banking balance API", () => {
           });
       });
     });
+
+    it("POST balance", (done) => {
+      chai
+        .request(server)
+        .post("/api/1.0/balances")
+        .type("json")
+        .send({
+          amount: 10000
+        })
+        .end((error: Error, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("object");
+          res.body.balance.should.be.a("object");
+          expect(res.body.balance.amount).to.equal(10000);
+          done();
+        });
+    });
   });
 });

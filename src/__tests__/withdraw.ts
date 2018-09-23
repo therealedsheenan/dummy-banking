@@ -55,5 +55,32 @@ context("dummy-banking withdraw API", () => {
         });
       });
     });
+
+    it("POST withdraw", (done) => {
+      const newBalance = new Balance({
+        amount: 10000
+      });
+      // saving a dummy balance
+      newBalance.save((error: Error, balance: BalanceModel) => {
+        chai
+          .request(server)
+          .post("/api/1.0/withdraws")
+          .type("json")
+          .send({
+            balanceId: balance._id,
+            amount: 10000
+          })
+          .end((error: Error, res) => {
+            res.should.have.status(200);
+            res.body.should.be.a("object");
+            // balance object
+            res.body.balance.should.be.a("object");
+            // withdraw object
+            res.body.withdraw.should.be.a("object");
+            expect(res.body.balance.amount).to.equal(0);
+            done();
+          });
+      });
+    });
   });
 });
