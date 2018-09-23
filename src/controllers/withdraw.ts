@@ -1,10 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
-import { DepositModel } from "../models/Deposit";
 import { BalanceModel } from "../models/Balance";
 import { WithdrawModel } from "../models/Withdraw";
 
-const Deposit = mongoose.model("Deposit");
 const Balance = mongoose.model("Balance");
 const Withdraw = mongoose.model("Withdraw");
 
@@ -26,7 +24,8 @@ export let postWithdraw = (req: Request, res: Response, next: NextFunction) => {
         Balance
           .findOneAndUpdate(
             { _id: withdraw.balanceId },
-            { $inc: { amount: -Math.abs(withdraw.amount) } }
+            { $inc: { amount: -Math.abs(withdraw.amount) } },
+        { new: true }
           ).exec((error: Error, balance: BalanceModel) => {
           if (error || !balance) {
             return next(error);

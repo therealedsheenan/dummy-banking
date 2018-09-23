@@ -24,7 +24,8 @@ export let postDeposit = (req: Request, res: Response, next: NextFunction) => {
         Balance
           .findOneAndUpdate(
             { _id: deposit.balanceId },
-            { $inc: { amount: deposit.amount } }
+            { $inc: { amount: deposit.amount } },
+            { new: true }
           ).exec((error: Error, balance: BalanceModel) => {
             if (error || !balance) {
               return next(error);

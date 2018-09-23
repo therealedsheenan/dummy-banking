@@ -41,3 +41,19 @@ export let getBalance = (req: Request, res: Response, next: NextFunction) => {
     return next(res.status(404));
   }
 };
+
+export let getBalances = (req: Request, res: Response, next: NextFunction) => {
+
+  Balance
+    .find(
+      {},
+      undefined,
+      { sort: { "createdAt": "desc" } },
+      (error: Error, balances: Array<BalanceModel>) => {
+        if (error) { return next(error); }
+        return res.json({ balances });
+      })
+    .catch((error: Error) => {
+      return res.status(500).json({  error: error  });
+    });
+};
