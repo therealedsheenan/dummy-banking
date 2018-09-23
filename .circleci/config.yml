@@ -3,7 +3,7 @@ jobs:
   build-and-test:
     working_directory: ~/app
     docker:
-    - image: circleci/mongo:3
+    - image: circleci/node:8.11.3
     steps:
     - checkout
     - restore_cache:
