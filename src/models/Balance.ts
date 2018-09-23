@@ -14,4 +14,4 @@ const balanceSchema = new mongoose.Schema({
   withdraws: [{ type: mongoose.Schema.Types.ObjectId, ref: "Withdraw" }]
 }, { timestamps: true });
 
-mongoose.model("Balance", balanceSchema);
+export default mongoose.model("Balance", balanceSchema);

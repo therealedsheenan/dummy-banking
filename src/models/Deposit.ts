@@ -11,4 +11,4 @@ const depositSchema = new mongoose.Schema({
   amount: { type: Number, required: true },
 }, { timestamps: true });
 
-mongoose.model("Deposit", depositSchema);
+export default mongoose.model("Deposit", depositSchema);
