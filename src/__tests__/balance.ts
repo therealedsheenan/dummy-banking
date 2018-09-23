@@ -9,7 +9,7 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-context("dummy-banking API", () => {
+context("dummy-banking balance API", () => {
   describe("balance api", () => {
     // Before each test we empty the database
     beforeEach((done) => {

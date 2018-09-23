@@ -9,7 +9,7 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-context("dummy-banking API", () => {
+context("dummy-banking deposit API", () => {
   describe("Deposit api", () => {
     // Before each test we empty the database
     beforeEach((done) => {
@@ -25,7 +25,7 @@ context("dummy-banking API", () => {
         .end((error, res) => {
           res.should.have.status(200);
           res.body.should.be.a("object");
-          // expect(res.body.deposit).to.be.a("array");
+          expect(res.body.deposits).to.be.a("array");
           done();
         });
     });

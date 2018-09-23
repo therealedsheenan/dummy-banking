@@ -63,9 +63,9 @@ export let getDeposits = (req: Request, res: Response, next: NextFunction) => {
       {},
       undefined,
       { sort: { "createdAt": "desc" } },
-      (err, desposits: Array<DepositModel>) => {
+      (err, deposits: Array<DepositModel>) => {
         if (err) { return next(err); }
-        return res.json({ desposits });
+        return res.json({ deposits });
       })
     .catch((err) => {
       return res.status(500).json({  error: err  });
