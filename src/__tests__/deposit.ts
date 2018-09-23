@@ -3,6 +3,7 @@ import chaiHttp from "chai-http";
 
 import server from "../app";
 import Deposit, { DepositModel } from "../models/Deposit";
+import Balance, { BalanceModel } from "../models/Balance";
 
 const should = chai.should();
 const expect = chai.expect;
@@ -43,6 +44,30 @@ context("dummy-banking deposit API", () => {
             res.body.should.be.a("object");
             res.body.deposit.should.be.a("object");
             expect(res.body.deposit.amount).to.equal(5000);
+            done();
+          });
+      });
+    });
+
+    it("POST deposit", (done) => {
+      const newbalance = new Balance({
+        amount: 10000
+      });
+      newbalance.save((error: Error, balance: BalanceModel) => {
+        chai
+          .request(server)
+          .post("/api/1.0/deposits")
+          .type("json")
+          .send({
+            amount: 10000,
+            balanceId: balance._id
+          })
+          .end((error: Error, res) => {
+            res.should.have.status(200);
+            res.body.should.be.a("object");
+            res.body.deposit.should.be.a("object");
+            expect(res.body.balance.amount).to.equal(20000);
+            expect(res.body.deposit.amount).to.equal(10000);
             done();
           });
       });

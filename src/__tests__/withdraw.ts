@@ -68,7 +68,7 @@ context("dummy-banking withdraw API", () => {
           .type("json")
           .send({
             balanceId: balance._id,
-            amount: 10000
+            amount: 5000
           })
           .end((error: Error, res) => {
             res.should.have.status(200);
@@ -77,7 +77,7 @@ context("dummy-banking withdraw API", () => {
             res.body.balance.should.be.a("object");
             // withdraw object
             res.body.withdraw.should.be.a("object");
-            expect(res.body.balance.amount).to.equal(0);
+            expect(res.body.balance.amount).to.equal(5000);
             done();
           });
       });
