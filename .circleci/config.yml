@@ -4,6 +4,7 @@ jobs:
     working_directory: ~/app
     docker:
     - image: circleci/node:8.11.3
+    - image: mongo:3.4.4
     steps:
     - checkout
     - restore_cache:
