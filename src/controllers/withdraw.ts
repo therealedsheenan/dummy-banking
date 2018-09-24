@@ -35,7 +35,7 @@ export let postWithdraw = (req: Request, res: Response, next: NextFunction) => {
       })
       .catch((error: Error) => {
         res.status(404);
-        return next(error);
+        return next();
       });
   }
 };
@@ -50,7 +50,7 @@ export let getWithdraw = (req: Request, res: Response, next: NextFunction) => {
     Withdraw.findById(withdrawId, (error: Error, withdraw: WithdrawModel) => {
       if (error || !withdraw) {
         res.status(404);
-        return next(error);
+        return next();
       }
       return res.json({ withdraw });
     });

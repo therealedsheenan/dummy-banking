@@ -35,7 +35,7 @@ export let postDeposit = (req: Request, res: Response, next: NextFunction) => {
       })
       .catch((error: Error) => {
         res.status(404);
-        return next(error);
+        return next();
       });
   }
 };
@@ -50,7 +50,7 @@ export let getDeposit = (req: Request, res: Response, next: NextFunction) => {
     Deposit.findById(depositId, (error: Error, deposit: DepositModel) => {
       if (error || !deposit) {
         res.status(404);
-        return next(error);
+        return next();
       }
       return res.json({ deposit });
     });

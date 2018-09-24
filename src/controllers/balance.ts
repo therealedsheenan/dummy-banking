@@ -19,7 +19,7 @@ export let postBalance = (req: Request, res: Response, next: NextFunction) => {
     })
     .catch((error: Error) => {
       res.status(404);
-      return next(error);
+      return next();
     });
 };
 
@@ -33,7 +33,7 @@ export let getBalance = (req: Request, res: Response, next: NextFunction) => {
     Balance.findById(balanceId, (error: Error, balance: BalanceModel) => {
       if (error || !balance) {
         res.status(404);
-        return next(error);
+        return next();
       }
       return res.json({ balance });
     });
