@@ -14,49 +14,47 @@ export let postTransfer = (req: Request, res: Response, next: NextFunction) => {
   const senderBalanceId = req.body.senderBalanceId;
   const amount = req.body.amount;
 
-  if (receiverBalanceId && senderBalanceId) {
-    const newTransfer = new Transfer({
-      amount,
-      senderBalanceId,
-      receiverBalanceId
-    });
+  const newTransfer = new Transfer({
+    amount,
+    senderBalanceId,
+    receiverBalanceId
+  });
 
-    // check if sender and receiver is existing
-    Promise.all([getBalance(senderBalanceId), getBalance(receiverBalanceId)])
-      .then((balances: Array<object>) => {
-        newTransfer
-          .save()
-          .then((transfer: TransferModel) => {
-            const currentTransfer = transfer;
-            Promise.all([
-              updateBalance(senderBalanceId, -Math.abs(transfer.amount)),
-              updateBalance(receiverBalanceId, transfer.amount)
-            ])
-              .then((balances: Array<object>) => {
-                // transfer of balances successful
-                return res.json({
-                  transfer: currentTransfer,
-                  senderBalance: balances[0],
-                  receiverBalance: balances[1]
-                });
-              })
-              .catch((error: Error) => {
-                // unable to udpate sender"s or receiver"s balance
-                res.status(500);
-                return next();
+  // check if sender and receiver is existing
+  Promise.all([getBalance(senderBalanceId), getBalance(receiverBalanceId)])
+    .then((balances: Array<object>) => {
+      newTransfer
+        .save()
+        .then((transfer: TransferModel) => {
+          const currentTransfer = transfer;
+          Promise.all([
+            updateBalance(senderBalanceId, -Math.abs(transfer.amount)),
+            updateBalance(receiverBalanceId, transfer.amount)
+          ])
+            .then((balances: Array<object>) => {
+              // transfer of balances successful
+              return res.json({
+                transfer: currentTransfer,
+                senderBalance: balances[0],
+                receiverBalance: balances[1]
               });
-          })
-          .catch((error: Error) => {
-            res.status(404);
-            return next();
-          });
-      })
-      .catch((error: Error) => {
-        // one of the balance ids is not found
-        res.status(500);
-        return next();
-      });
-  }
+            })
+            .catch((error: Error) => {
+              // unable to udpate sender"s or receiver"s balance
+              res.status(500);
+              return next();
+            });
+        })
+        .catch((error: Error) => {
+          res.status(404);
+          return next();
+        });
+    })
+    .catch((error: Error) => {
+      // one of the balance ids is not found
+      res.status(500);
+      return next();
+    });
 };
 
 /*

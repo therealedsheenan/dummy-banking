@@ -60,8 +60,8 @@ context("dummy-banking balance API", () => {
       });
     });
 
-    describe("POST balances - ERROR", () => {
-      it("POST balance", done => {
+    describe("POST balances", () => {
+      it("POST balance - status 404", done => {
         chai
           .request(server)
           .post("/api/1.0/balances")
