@@ -12,7 +12,7 @@
     "build": "npm run build-ts && npm run tslint",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
-    "test": "NODE_ENV=test mocha --timeout 10000 dist/__tests__/**/*.js",
+    "test": "NODE_ENV=test mocha --timeout 10000 --exit dist/__tests__/**/*.js",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "tslint:fix": "tslint -c tslint.json -p tsconfig.json --fix",
     "debug": "npm run build && npm run watch-debug",
