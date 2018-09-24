@@ -21,16 +21,15 @@ export let postDeposit = (req: Request, res: Response, next: NextFunction) => {
     newDeposit
       .save()
       .then((deposit: DepositModel) => {
-        Balance
-          .findOneAndUpdate(
-            { _id: deposit.balanceId },
-            { $inc: { amount: deposit.amount } },
-            { new: true }
-          ).exec((error: Error, balance: BalanceModel) => {
-            if (error || !balance) {
-              return next(error);
-            }
-            return res.json({ balance, deposit });
+        Balance.findOneAndUpdate(
+          { _id: deposit.balanceId },
+          { $inc: { amount: deposit.amount } },
+          { new: true }
+        ).exec((error: Error, balance: BalanceModel) => {
+          if (error || !balance) {
+            return next(error);
+          }
+          return res.json({ balance, deposit });
         });
       })
       .catch((error: Error) => {
@@ -58,17 +57,17 @@ export let getDeposit = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export let getDeposits = (req: Request, res: Response, next: NextFunction) => {
-  Deposit
-    .find(
-      {},
-      undefined,
-      { sort: { "createdAt": "desc" } },
-      (err, deposits: Array<DepositModel>) => {
-        if (err) { return next(err); }
-        return res.json({ deposits });
-      })
-    .catch((err) => {
-      return res.status(500).json({  error: err  });
-    });
+  Deposit.find(
+    {},
+    undefined,
+    { sort: { createdAt: "desc" } },
+    (err, deposits: Array<DepositModel>) => {
+      if (err) {
+        return next(err);
+      }
+      return res.json({ deposits });
+    }
+  ).catch(err => {
+    return res.status(500).json({ error: err });
+  });
 };
-

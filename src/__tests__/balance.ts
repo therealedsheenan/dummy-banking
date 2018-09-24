@@ -12,15 +12,14 @@ chai.use(chaiHttp);
 context("dummy-banking balance API", () => {
   describe("balance api", () => {
     // Before each test we empty the database
-    beforeEach((done) => {
+    beforeEach(done => {
       Balance.remove({}, (error: Error) => {
         done();
       });
     });
 
     describe("GET balances", () => {
-
-      it ("GET all balances", (done) => {
+      it("GET all balances", done => {
         chai
           .request(server)
           .get("/api/1.0/balances")
@@ -32,7 +31,7 @@ context("dummy-banking balance API", () => {
           });
       });
 
-      it("GET balance via ID - status 200", (done) => {
+      it("GET balance via ID - status 200", done => {
         const newBalance = new Balance({
           amount: 5000
         });
@@ -50,7 +49,7 @@ context("dummy-banking balance API", () => {
         });
       });
 
-      it("GET balance via ID - status 400", (done) => {
+      it("GET balance via ID - status 400", done => {
         chai
           .request(server)
           .get("/api/1.0/balances/dummy_number_here")
@@ -62,7 +61,7 @@ context("dummy-banking balance API", () => {
     });
 
     describe("POST balances - ERROR", () => {
-      it("POST balance", (done) => {
+      it("POST balance", done => {
         chai
           .request(server)
           .post("/api/1.0/balances")
@@ -73,7 +72,7 @@ context("dummy-banking balance API", () => {
             done();
           });
       });
-      it("POST balance", (done) => {
+      it("POST balance", done => {
         chai
           .request(server)
           .post("/api/1.0/balances")

@@ -13,14 +13,14 @@ chai.use(chaiHttp);
 context("dummy-banking withdraw API", () => {
   describe("withdraw api", () => {
     // Before each test we empty the database
-    beforeEach((done) => {
+    beforeEach(done => {
       Withdraw.remove({}, (error: Error) => {
         done();
       });
     });
 
     describe("GET withdraws", () => {
-      it ("GET all withdraws", (done) => {
+      it("GET all withdraws", done => {
         chai
           .request(server)
           .get("/api/1.0/withdraws")
@@ -32,7 +32,7 @@ context("dummy-banking withdraw API", () => {
           });
       });
 
-      it("GET withdraw via ID - status 200", (done) => {
+      it("GET withdraw via ID - status 200", done => {
         const newBalance = new Balance({
           amount: 1000
         });
@@ -56,7 +56,7 @@ context("dummy-banking withdraw API", () => {
           });
         });
       });
-      it("GET withdraw via ID - status 404", (done) => {
+      it("GET withdraw via ID - status 404", done => {
         const newBalance = new Balance({
           amount: 1000
         });
@@ -80,7 +80,7 @@ context("dummy-banking withdraw API", () => {
     });
 
     describe("POST withdraw", () => {
-      it("POST withdraw - status 200", (done) => {
+      it("POST withdraw - status 200", done => {
         const newBalance = new Balance({
           amount: 10000
         });
@@ -106,7 +106,7 @@ context("dummy-banking withdraw API", () => {
             });
         });
       });
-      it("POST withdraw - status 404", (done) => {
+      it("POST withdraw - status 404", done => {
         const newBalance = new Balance({ amount: 1000 });
         // saving a dummy balance
         newBalance.save((error: Error, balance: BalanceModel) => {

@@ -21,12 +21,11 @@ export let postWithdraw = (req: Request, res: Response, next: NextFunction) => {
     newWithdraw
       .save()
       .then((withdraw: WithdrawModel) => {
-        Balance
-          .findOneAndUpdate(
-            { _id: withdraw.balanceId },
-            { $inc: { amount: -Math.abs(withdraw.amount) } },
-        { new: true }
-          ).exec((error: Error, balance: BalanceModel) => {
+        Balance.findOneAndUpdate(
+          { _id: withdraw.balanceId },
+          { $inc: { amount: -Math.abs(withdraw.amount) } },
+          { new: true }
+        ).exec((error: Error, balance: BalanceModel) => {
           if (error || !balance) {
             return next(error);
           }
@@ -58,17 +57,17 @@ export let getWithdraw = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export let getWithdraws = (req: Request, res: Response, next: NextFunction) => {
-  Withdraw
-    .find(
-      {},
-      undefined,
-      { sort: { "createdAt": "desc" } },
-      (err, withdraws: Array<WithdrawModel>) => {
-        if (err) { return next(err); }
-        return res.json({ withdraws });
-      })
-    .catch((err) => {
-      return res.status(500).json({  error: err  });
-    });
+  Withdraw.find(
+    {},
+    undefined,
+    { sort: { createdAt: "desc" } },
+    (err, withdraws: Array<WithdrawModel>) => {
+      if (err) {
+        return next(err);
+      }
+      return res.json({ withdraws });
+    }
+  ).catch(err => {
+    return res.status(500).json({ error: err });
+  });
 };
-

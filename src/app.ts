@@ -13,6 +13,7 @@ import mongoose from "mongoose";
 import "./models/Deposit";
 import "./models/Balance";
 import "./models/Withdraw";
+import "./models/Transfer";
 
 const app = express();
 

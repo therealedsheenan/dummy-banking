@@ -13,14 +13,14 @@ chai.use(chaiHttp);
 context("dummy-banking deposit API", () => {
   describe("Deposit api", () => {
     // Before each test we empty the database
-    beforeEach((done) => {
+    beforeEach(done => {
       Deposit.remove({}, (error: Error) => {
         done();
       });
     });
 
     describe("GET deposits", () => {
-      it ("GET all deposits", (done) => {
+      it("GET all deposits", done => {
         chai
           .request(server)
           .get("/api/1.0/deposits")
@@ -32,7 +32,7 @@ context("dummy-banking deposit API", () => {
           });
       });
 
-      it("GET Deposit via ID - status 200", (done) => {
+      it("GET Deposit via ID - status 200", done => {
         const newDeposit = new Deposit({
           amount: 5000
         });
@@ -49,7 +49,7 @@ context("dummy-banking deposit API", () => {
             });
         });
       });
-      it("GET Deposit via ID - status 404", (done) => {
+      it("GET Deposit via ID - status 404", done => {
         chai
           .request(server)
           .get("/api/1.0/deposits/dummy_desposit")
@@ -61,7 +61,7 @@ context("dummy-banking deposit API", () => {
     });
 
     describe("POST deposits", () => {
-      it("POST deposit - SUCCESS", (done) => {
+      it("POST deposit - SUCCESS", done => {
         const newbalance = new Balance({
           amount: 10000
         });
@@ -85,7 +85,7 @@ context("dummy-banking deposit API", () => {
         });
       });
 
-      it("POST deposit - FAILURE", (done) => {
+      it("POST deposit - FAILURE", done => {
         const newbalance = new Balance({
           amount: 10000
         });
