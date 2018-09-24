@@ -29,3 +29,26 @@ Checkout `npm scripts` for other commands.
 ```
 $ yarn test # run testing suite
 ```
+
+#### API Routes
+```
+// balance
+router.get("/balances", balance.getBalances);
+router.get("/balances/:balanceId", balance.getBalance);
+router.post("/balances", balance.postBalance);
+
+// deposit
+router.get("/deposits", deposit.getDeposits);
+router.get("/deposits/:depositId", deposit.getDeposit);
+router.post("/deposits", deposit.postDeposit);
+
+// withdraw
+router.get("/withdraws", withdraw.getWithdraws);
+router.get("/withdraws/:withdrawId", withdraw.getWithdraw);
+router.post("/withdraws", withdraw.postWithdraw);
+
+// transfers
+router.get("/transfers", transfer.getTransfers);
+router.get("/transfers/:transferId", transfer.getTransfer);
+router.post("/transfers", transfer.postTransfer);
+```
