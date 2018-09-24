@@ -1,4 +1,4 @@
-# dummy-banking
+# dummy-banking [![CircleCI](https://circleci.com/gh/therealedsheenan/dummy-banking/tree/master.svg?style=svg)](https://circleci.com/gh/therealedsheenan/dummy-banking/tree/master)
 A dummy api for basic banking
 
 ### Installation
