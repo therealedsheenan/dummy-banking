@@ -28,18 +28,13 @@ export let postBalance = (req: Request, res: Response, next: NextFunction) => {
  */
 export let getBalance = (req: Request, res: Response, next: NextFunction) => {
   const balanceId = req.params.balanceId;
-
-  if (balanceId) {
-    Balance.findById(balanceId, (error: Error, balance: BalanceModel) => {
-      if (error || !balance) {
-        res.status(404);
-        return next();
-      }
-      return res.json({ balance });
-    });
-  } else {
-    return next(res.status(404));
-  }
+  Balance.findById(balanceId, (error: Error, balance: BalanceModel) => {
+    if (error || !balance) {
+      res.status(404);
+      return next();
+    }
+    return res.json({ balance });
+  });
 };
 
 export let getBalances = (req: Request, res: Response, next: NextFunction) => {
@@ -49,11 +44,12 @@ export let getBalances = (req: Request, res: Response, next: NextFunction) => {
     { sort: { createdAt: "desc" } },
     (error: Error, balances: Array<BalanceModel>) => {
       if (error) {
-        return next(error);
+        res.status(500);
+        return next();
       }
       return res.json({ balances });
     }
   ).catch((error: Error) => {
-    return res.status(500).json({ error: error });
+    return res.status(500).json({ error });
   });
 };

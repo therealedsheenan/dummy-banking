@@ -27,7 +27,8 @@ export let postDeposit = (req: Request, res: Response, next: NextFunction) => {
           { new: true }
         ).exec((error: Error, balance: BalanceModel) => {
           if (error || !balance) {
-            return next(error);
+            res.status(500);
+            return next();
           }
           return res.json({ balance, deposit });
         });
@@ -61,13 +62,14 @@ export let getDeposits = (req: Request, res: Response, next: NextFunction) => {
     {},
     undefined,
     { sort: { createdAt: "desc" } },
-    (err, deposits: Array<DepositModel>) => {
-      if (err) {
-        return next(err);
+    (error: Error, deposits: Array<DepositModel>) => {
+      if (error) {
+        res.status(500);
+        return next();
       }
       return res.json({ deposits });
     }
-  ).catch(err => {
-    return res.status(500).json({ error: err });
+  ).catch((error: Error) => {
+    return res.status(500).json({ error });
   });
 };

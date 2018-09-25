@@ -52,7 +52,7 @@ export let postTransfer = (req: Request, res: Response, next: NextFunction) => {
     })
     .catch((error: Error) => {
       // one of the balance ids is not found
-      res.status(500);
+      res.status(404);
       return next();
     });
 };
@@ -63,15 +63,13 @@ export let postTransfer = (req: Request, res: Response, next: NextFunction) => {
 export let getTransfer = (req: Request, res: Response, next: NextFunction) => {
   const transferId = req.params.transferId;
 
-  if (transferId) {
-    Transfer.findById(transferId, (error: Error, transfer: TransferModel) => {
-      if (error || !transfer) {
-        res.status(404);
-        return next();
-      }
-      return res.json({ transfer });
-    });
-  }
+  Transfer.findById(transferId, (error: Error, transfer: TransferModel) => {
+    if (error || !transfer) {
+      res.status(404);
+      return next();
+    }
+    return res.json({ transfer });
+  });
 };
 
 export let getTransfers = (req: Request, res: Response, next: NextFunction) => {
@@ -81,12 +79,13 @@ export let getTransfers = (req: Request, res: Response, next: NextFunction) => {
     { sort: { createdAt: "desc" } },
     (err, transfers: Array<TransferModel>) => {
       if (err) {
-        return next(err);
+        res.status(500);
+        return next();
       }
       return res.json({ transfers });
     }
-  ).catch(err => {
-    return res.status(500).json({ error: err });
+  ).catch((error: Error) => {
+    return res.status(404).json({ error });
   });
 };
 
